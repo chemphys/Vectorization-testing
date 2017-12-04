@@ -1,0 +1,21 @@
+#!/bin/bash
+
+file=$1
+NOVEC=0
+VEC=0
+for run in {1..500}
+do
+  VAR=$(./novec/test_simple)
+  NOVEC=`expr $VAR + $NOVEC`
+done
+
+for run in {1..500}
+do
+  VAR=$(./autovec/test_simple)
+  VEC=`expr $VAR + $VEC`
+done
+
+echo "Nonvectorized runtime:"
+echo $((NOVEC / 500))
+echo "Vectorized runtime:"
+echo $((VEC / 500))
